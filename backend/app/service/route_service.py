@@ -23,7 +23,7 @@ def get_distance_from_api(
 
         case GenericTransportationType.RAIL:
             travelMode = "TRANSIT"
-            transitPreferences = {"allowedTravelModes": ["BUS"]}
+            transitPreferences = {"allowedTravelModes": ["RAIL"]}
 
         case _:
             travelMode = transportation_mode.value[0]
