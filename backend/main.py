@@ -60,3 +60,11 @@ def add_user(user: User, session: SessionDep) -> None:
     session.commit()
     session.refresh(user)
     return user
+
+@app.post("/login")
+def login_user(
+    session: SessionDep, 
+    user: User,
+    offset: int = 0,
+):
+    ...

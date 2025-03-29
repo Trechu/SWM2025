@@ -1,5 +1,6 @@
-from sqlmodel import Field, SQLModel, Relationship
+from sqlmodel import Field, SQLModel, Relationship, Column
 from ..common.enums import SpecificTransportationType
+from sqlalchemy import String
 
 class Route(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
@@ -15,8 +16,11 @@ class Route(SQLModel, table=True):
 
 
 class User(SQLModel, table=True):
-    id: int = Field(default=None, primary_key=True)
-    user_name: str = Field(index=True)
+    id: int | None = Field(default=None, primary_key=True)
+    """
+        Throws sqlite3.IntegrityError: UNIQUE constraint failed: user.user_name
+    """
+    user_name: str = Field(sa_column=Column("user_name", String, unique=True))
     
     #user_friends: list["User"] = Relationship(back_populates="friends")  
 
