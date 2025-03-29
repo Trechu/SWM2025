@@ -15,7 +15,7 @@ User data with ID.
 {
     "id": 1,
     "username": "franek123",
-    // ...
+    // other user data if necessary
 }
 ```
 #### 404 NOT FOUND
@@ -26,7 +26,11 @@ Route data required to create new one (only with start data).
 ### Request
 ```json
 {
-    // TODO: route data
+    "startLocation": {
+        "latitude": 12.34,
+        "longitude": 32.10,
+    },
+    "transportationMode": "BUS"
 }
 ```
 
@@ -35,7 +39,7 @@ Route data required to create new one (only with start data).
 Route data.
 ```json
 {
-    // TODO: route data with ID
+    // route data
 }
 ```
 
@@ -50,7 +54,10 @@ End route
 ### Request
 ```json
 {
-    // TODO: route data needed to end route
+    "endLocation": {
+        "latitude": 12.34,
+        "longitude": 32.10,
+    },
 }
 ```
 
@@ -59,7 +66,7 @@ End route
 Route data.
 ```json
 {
-    // TODO: route data with ID
+    // route data
 }
 ```
 
@@ -77,7 +84,7 @@ If there is no user with this id or no route with this id.
 Get data of the route that is active.
 ```json
 {
-    // TODO: route data
+    // route data
 }
 ```
 
