@@ -1,7 +1,8 @@
 from typing import Annotated, Optional
 from app.db.models import Route, User
 from app.db.setup import SessionDep, create_db_and_tables
-from fastapi import FastAPI, Query
+from app.dto.UserDtos import UserLogin 
+from fastapi import FastAPI, HTTPException, Query
 from dotenv import load_dotenv
 from sqlmodel import select
 import os
@@ -64,7 +65,10 @@ def add_user(user: User, session: SessionDep) -> None:
 @app.post("/login")
 def login_user(
     session: SessionDep, 
-    user: User,
+    user_login: UserLogin,
     offset: int = 0,
 ):
-    ...
+    user = session.exec(select(User).where(User.user_name == user_login.user_name)).first()
+    if user is None:
+         raise HTTPException(status_code=404, detail="User not found")
+    return user
