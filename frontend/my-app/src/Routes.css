@@ -5,3 +5,8 @@
     background-color: inherit;
 }
 
+option { 
+    /* Whatever color  you want */
+    background-color: #070221;
+    font-weight: 500;
+}

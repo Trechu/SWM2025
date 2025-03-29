@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 
 function PositionComponent({ positionEntry }) {
     return (
-        <Row>
+        <Row className='entry entry-border'>
             <Col xs="1" lg="2">{positionEntry.position}</Col>
             <Col xs="3" lg="2">{positionEntry.username}</Col>
             <Col xs="2" lg="2">{positionEntry.distance + " km"}</Col>
@@ -47,16 +47,16 @@ function LeaderboardsComponent() {
         <div className="leaderboard-body">
             <Form>
                 <Form.Group>
-                    <Form.Label>Select leaderboard timeline</Form.Label>
-                    <Form.Select>
+                    <Form.Label><h3>Select leaderboard timeline</h3></Form.Label>
+                    <Form.Select style={{ "color": "white", "fontWeight":"500" }} className="bg-transparent">
                         <option>Today</option>
                         <option>This week</option>
                         <option>This month</option>
                     </Form.Select>
                 </Form.Group>
             </Form>
-            <Container>
-                <Row>
+            <Container style={{"marginTop":"5%"}}>
+                <Row className='entry' style={{"marginTop":"3%", "marginBottom":"3%"}}>
                     <Col xs="1" lg="2"></Col>
                     <Col xs="3" lg="2">Username</Col>
                     <Col xs="2" lg="2">Distance</Col>
