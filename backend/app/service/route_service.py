@@ -68,8 +68,11 @@ def get_distance_from_api(
     print(response.json())
     if response.is_error:
         return None
-
-    return response.json()["routes"][0]["distanceMeters"]
+    
+    try:
+        return response.json()["routes"][0]["distanceMeters"]
+    except Exception as _:
+        return None
 
 
 def handle_end_route(
