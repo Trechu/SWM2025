@@ -6,7 +6,7 @@ import './Navbar.css';
 
 function NavbarComponent() {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary navbar" color='#00001b' data-bs-theme="dark">
+    <Navbar expand="lg" className="bg-body-tertiary navbar">
       <Container>
         <Navbar.Brand href="#home">Catchy app name</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
