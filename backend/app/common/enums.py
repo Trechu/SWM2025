@@ -2,17 +2,17 @@ from __future__ import annotations
 from enum import Enum
 
 class SpecificTransportationType(Enum):
-    WALK = "walk"
-    BIKE = "bicycle"
-    BUS = "bus"
-    TRAM = "tram"
-    SUBWAY = "subway"
-    COACH = "coach"
-    RAIL = "rail"
-    DIESEL_CAR = "diesel_car"
-    HYBRID_CAR = "hybrid_car"
-    ELECTRIC_CAR = "electric_car"
-    MOTORBIKE = "motorbike"
+    WALK = "WALK"
+    BIKE = "BICYCLE"
+    BUS = "BUS"
+    TRAM = "TRAM"
+    SUBWAY = "SUBWAY"
+    COACH = "COACH"
+    RAIL = "RAIL"
+    DIESEL_CAR = "DIESEL_CAR"
+    HYBRID_CAR = "HYBRID_CAR"
+    ELECTRIC_CAR = "ELECTRIC_CAR"
+    MOTORBIKE = "MOTORBIKE"
 
     def get_emissions(self):
         """

@@ -2,13 +2,14 @@ from typing import Annotated, Optional
 from app.db.models import Route, User
 from app.db.setup import SessionDep, create_db_and_tables
 from app.dto.UserDtos import UserLoginDtoRequest
-from fastapi import FastAPI, HTTPException, Query
+from app.dto.RoutesDtos import FinishRouteDtoRequest, StartRouteDtoRequest
+from app.service.route_service import handle_end_route, create_route
+
+from fastapi import FastAPI, Query, HTTPException, status
 from dotenv import load_dotenv
 from sqlmodel import select
 import os
 
-from app.dto.RoutesDtos import StartRouteDtoRequest
-from app.service.route_service import create_route
 
 app = FastAPI()
 
@@ -44,6 +45,23 @@ def list_all_routes(
 ) -> list[Route]:
     routes = session.exec(select(Route).offset(offset).limit(limit)).all()
     return routes
+
+@app.put("/users/{user_id}/routes/{route_id}")
+def end_route(user_id: int, route_id: int, request: FinishRouteDtoRequest, session: SessionDep):
+    user = session.exec(select(User).where(User.id == user_id)).first()
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="user not found")
+    
+    route = session.exec(select(Route).where(Route.id == route_id and Route.user_id == user_id)).first()
+    if route is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="route not found")
+    
+    response = handle_end_route(route, request, session, GOOGLE_MAPS_API_KEY)
+    if response is None:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    return response
+    
+    
 
 @app.get("/users/{user_id}")
 def get_user_by_id(
