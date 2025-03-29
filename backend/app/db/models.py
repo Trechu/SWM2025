@@ -1,12 +1,17 @@
 from sqlmodel import Field, SQLModel, Relationship
+from ..common.enums import SpecificTransportationType
 
 class Route(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     user_id: int = Field(index=True, foreign_key="user.id")
     start_longitude: float = Field(default=0, index=False)
-    start_altitude: float = Field(default=0, index=False)
+    start_latitude: float = Field(default=0, index=False)
     end_longitude: float = Field(default=0, index=False)
-    end_altitude: float = Field(default=0, index=False)
+    end_latitude: float = Field(default=0, index=False)
+    active: bool = Field(default=True)
+    distance: float = Field(default=0, index=False)
+    transportation_type: SpecificTransportationType | None = Field(default= None,index=False) 
+
 
 
 class User(SQLModel, table=True):

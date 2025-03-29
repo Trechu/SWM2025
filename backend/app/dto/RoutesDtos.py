@@ -1,8 +1,8 @@
 from pydantic import BaseModel
 
-from backend.common.enums import SpecificTransportationType
-from backend.common.location import Location
-from backend.db.models import User
+from ..common.enums import SpecificTransportationType
+from ..common.location import Location
+from ..db.models import User
 
 
 class StartRouteDtoRequest(BaseModel):
