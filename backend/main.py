@@ -107,7 +107,7 @@ def login_user(
          raise HTTPException(status_code=404, detail="User not found")
     return user
 
-@app.get("/users/{id}/active_route")
+@app.get("/users/{user_id}/active_route")
 def get_active_route(
     session: SessionDep, 
     user_id: int,
