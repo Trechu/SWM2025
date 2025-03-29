@@ -49,7 +49,7 @@ If route data is incorrect.
 #### 404 NOT FOUND
 If there is no user with this id.
 
-## PUT /users/:id/routes/:id/end
+## PUT /users/:id/routes/:id
 End route
 ### Request
 ```json
@@ -94,7 +94,11 @@ If there is no user with this ID.
 #### 404 NOT FOUND
 If there is no active route
 
-## GET /users/:id/leaderboard/today
+## GET /users/:id/leaderboard
+### Query params (GET)
+```
+time="today" | "week" | "month"
+```
 ### Request
 
 ### Response
@@ -129,9 +133,3 @@ If user doesn't have any friends, just send their data.
 
 #### 400 BAD REQUEST
 If there is no user with this ID.
-
-## GET /users/:id/leaderboard/week
-Same as `/leaderboard/today` but for the current week.
-
-## GET /users/:id/leaderboard/month
-Same as `/leaderboard/today` but for the current month.
