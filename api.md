@@ -30,7 +30,8 @@ Route data required to create new one (only with start data).
         "latitude": 12.34,
         "longitude": 32.10,
     },
-    "transportationMode": "BUS"
+    "transportationMode": "BUS",
+    "startDate": "2011-10-05T14:48:00.000Z",
 }
 ```
 
