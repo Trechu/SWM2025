@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "./consts";
 
 function LoginComponent() {
 
@@ -8,8 +9,29 @@ function LoginComponent() {
         event.preventDefault()
         console.log(event.target[0].value)
         const name = event.target[0].value;
-        sessionStorage.setItem('name', name);
-        navigate('/routes', {replace: true});
+
+        fetch(API_URL + "/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                "user_name": name
+            })
+        }).then(res => {
+            if (res.status !== 200) {
+                throw Error("invalid username")
+            }
+            return res.json()
+    })
+        .then(data => {
+            sessionStorage.setItem('name', data.username);
+            sessionStorage.setItem('id', data.id);
+            navigate('/routes', {replace: true});
+        })
+        .catch(_ => {
+            window.alert("Unable to login.");
+        })
     }
 
     return (
