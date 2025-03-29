@@ -36,7 +36,7 @@ def list_all_routes(
     routes = session.exec(select(Route).offset(offset).limit(limit)).all()
     return routes
 
-@app.get("/user/{user_id}")
+@app.get("/users/{user_id}")
 def get_user_by_id(
     session: SessionDep, 
     user_id: int,
@@ -45,7 +45,7 @@ def get_user_by_id(
     user = session.exec(select(User).where(User.id == user_id).offset(offset)).first()
     return user 
 
-@app.get("/user")
+@app.get("/users")
 def list_all_users(
     session: SessionDep, 
     limit: Annotated[int, Query(le=100)] = 100,
@@ -54,7 +54,7 @@ def list_all_users(
     
     return session.exec(select(User).offset(offset).limit(limit)).all()
 
-@app.post("/user")
+@app.post("/users")
 def add_user(user: User, session: SessionDep) -> None:
     session.add(user)
     session.commit()
