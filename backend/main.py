@@ -7,6 +7,9 @@ from dotenv import load_dotenv
 from sqlmodel import select
 import os
 
+from app.dto.RoutesDtos import StartRouteDtoRequest
+from app.service.route_service import create_route
+
 app = FastAPI()
 
 load_dotenv()
@@ -21,12 +24,17 @@ def on_startup() -> None:
 def routes() -> list[str]:
     return list(["Hello", "World"])
 
-@app.post("/routes")
-def add_route(route: Route, session: SessionDep) -> None:
-    session.add(route)
-    session.commit()
-    session.refresh(route)
-    return route
+@app.post("/users/:id/routes")
+def add_route(user_id: int, startRouteDto: StartRouteDtoRequest, session: SessionDep) -> None:
+    if not session.exec(select(User).where(User.id == user_id)).first():
+        raise HTTPException(status_code=404, detail="User not found")
+    return create_route(
+        user_id=user_id,
+        latitude=startRouteDto.startLocation.latitude,
+        longitude=startRouteDto.startLocation.longitude,
+        transportationMode=startRouteDto.transportationMode,
+        session=session
+    )
 
 @app.get("/routes")
 def list_all_routes(
