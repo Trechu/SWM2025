@@ -26,7 +26,7 @@ def get_distance_from_api(
             transitPreferences = {"allowedTravelModes": ["BUS"]}
 
         case _:
-            travelMode = transportation_mode.value
+            travelMode = transportation_mode.value[0]
             transitPreferences = None
 
     headers = {
@@ -63,6 +63,9 @@ def get_distance_from_api(
         headers=headers,
         json=data,
     )
+    
+    print(data)
+    print(response.json())
     if response.is_error:
         return None
 
@@ -88,10 +91,10 @@ def handle_end_route(
     return FinishRouteDtoResponse(
         id=route.id,
         userId=route.user_id,
-        startCoordinates=Location(
+        startLocation=Location(
             latitude=route.start_latitude, longitude=route.start_longitude
         ),
-        endCoordinates=Location(
+        endLocation=Location(
             latitude=route.end_latitude, longitude=route.end_longitude
         ),
         active=route.active,
