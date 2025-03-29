@@ -3,7 +3,7 @@ from enum import Enum
 
 class SpecificTransportationType(Enum):
     WALK = "WALK"
-    BIKE = "BICYCLE"
+    BIKE = "BIKE"
     BUS = "BUS"
     TRAM = "TRAM"
     SUBWAY = "SUBWAY"

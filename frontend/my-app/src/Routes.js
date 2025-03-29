@@ -59,7 +59,7 @@ function RoutesComponent() {
                 "endLocation": {"latitude": latitude,"longitude": longitude}
             })
         }).then(res => res.json()).then(data => console.log(data))
-        // window.location.reload();
+        window.location.reload();
     }
 
     function success(position) {
@@ -113,10 +113,17 @@ function RoutesComponent() {
                         <Form.Label htmlFor="transportStartSelect" style={{ "color": "white" }} >Select form of transport</Form.Label>
                         <Form.Select id="transportStartSelect" className="bg-transparent" style={{ "color": "white", "fontWeight": "500" }} onChange={handleFormChoice}>
                             <option value="WALK">ON FOOT</option>
-                            <option value="BICYCLE">BICYCLE</option>
+                            <option value="BIKE">BICYCLE</option>
                             <option value="CAR">CAR</option>
                             <option value="BUS">BUS</option>
-                            <option value="TRAIN/METRO">TRAIN/METRO</option>
+                            <option value="TRAM">TRAM</option>
+                            <option value="SUBWAY">SUBWAY</option>
+                            <option value="COACH">COACH</option>
+                            <option value="RAIL">RAIL</option>
+                            <option value="DIESEL_CAR">DIESEL_CAR</option>
+                            <option value="HYBRID_CAR">HYBRID_CAR</option>
+                            <option value="ELECTRIC_CAR">ELECTRIC_CAR</option>
+                            <option value="MOTORBIKE">MOTORBIKE</option>
                         </Form.Select>
                     </Form.Group>
                     <Button type="submit" variant="light" style={{ "fontWeight": "500" }}>Start new route</Button>
@@ -147,11 +154,18 @@ function RoutesComponent() {
                     <Form.Group className="mb-3">
                         <Form.Label htmlFor="transportEndSelect" style={{ "color": "white" }}>Confirm form of transport</Form.Label>
                         <Form.Select id="transportEndSelect" className="bg-transparent" style={{ "color": "white", "fontWeight": "500" }}>
-                            <option value="ON FOOT">ON FOOT</option>
-                            <option value="BICYCLE">BICYCLE</option>
+                            <option value="WALK">ON FOOT</option>
+                            <option value="BIKE">BICYCLE</option>
                             <option value="CAR">CAR</option>
                             <option value="BUS">BUS</option>
-                            <option value="TRAIN/METRO">TRAIN/METRO</option>
+                            <option value="TRAM">TRAM</option>
+                            <option value="SUBWAY">SUBWAY</option>
+                            <option value="COACH">COACH</option>
+                            <option value="RAIL">RAIL</option>
+                            <option value="DIESEL_CAR">DIESEL_CAR</option>
+                            <option value="HYBRID_CAR">HYBRID_CAR</option>
+                            <option value="ELECTRIC_CAR">ELECTRIC_CAR</option>
+                            <option value="MOTORBIKE">MOTORBIKE</option>
                         </Form.Select>
                     </Form.Group>
                     <Button type="submit" variant="light" style={{ "fontWeight": "500" }}>End route</Button>

@@ -2,6 +2,8 @@
     width: 95%;
     margin: auto;
     margin-top: 20%;
+    font-size: small;
+    overflow: visible;
 }
 
 .entry-border {
