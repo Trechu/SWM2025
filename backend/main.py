@@ -125,7 +125,7 @@ def get_active_route(
         raise HTTPException(status_code=404, detail="Route not found")
     return active_route 
 
-@app.get("/users/:id/leaderboard")
+@app.get("/users/{user_id}/leaderboard")
 def get_leaderboard(user_id: int, time: Time, session: SessionDep) -> LeaderboardListResponse:
     return leaderboard_service.leaderboard(
         user_id=user_id,
