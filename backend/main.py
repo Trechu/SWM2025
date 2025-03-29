@@ -1,6 +1,7 @@
 from typing import Annotated, Optional
 from app.db.models import Route, User
 from app.db.setup import SessionDep, create_db_and_tables
+from app.dto.UserDtos import UserLoginDtoRequest
 from fastapi import FastAPI, HTTPException, Query
 from dotenv import load_dotenv
 from sqlmodel import select
@@ -68,3 +69,28 @@ def add_user(user: User, session: SessionDep) -> None:
     session.commit()
     session.refresh(user)
     return user
+
+@app.post("/login")
+def login_user(
+    session: SessionDep, 
+    user_login: UserLoginDtoRequest,
+    offset: int = 0,
+):
+    user = session.exec(select(User).where(User.user_name == user_login.user_name)).first()
+    if user is None:
+         raise HTTPException(status_code=404, detail="User not found")
+    return user
+
+@app.get("/users/{id}/active_route")
+def get_active_route(
+    session: SessionDep, 
+    user_id: int,
+    offset: int = 0,
+) -> Optional[Route]:
+    user = session.exec(select(User).where(User.id == user_id).offset(offset)).first() 
+    if user is None:
+        raise HTTPException(status_code=400, detail="Bad request. User not found")
+    active_route = session.exec(select(Route).where(Route.user_id == user_id).where(Route.active == True)).first()
+    if active_route is None:
+        raise HTTPException(status_code=404, detail="Route not found")
+    return active_route 
