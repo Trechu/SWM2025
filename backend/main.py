@@ -6,12 +6,20 @@ from app.dto.RoutesDtos import FinishRouteDtoRequest, StartRouteDtoRequest
 from app.service.route_service import handle_end_route, create_route
 
 from fastapi import FastAPI, Query, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from sqlmodel import select
 import os
 
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT"],
+    allow_headers=["*"],
+)
 
 load_dotenv()
 GOOGLE_MAPS_API_KEY = os.getenv("GOOGLE_MAPS_API_KEY")
