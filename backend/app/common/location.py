@@ -1,5 +1,5 @@
-from dataclasses import dataclass
+from pydantic import BaseModel
 
-class Location(dataclass):
-    lagitude: float
+class Location(BaseModel):
+    latitude: float
     longitude: float

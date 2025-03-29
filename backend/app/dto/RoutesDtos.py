@@ -14,16 +14,16 @@ class FinishRouteDtoRequest(BaseModel):
 
 class StartRouteDtoResponse(BaseModel):
     id: int
-    username: str
-    start_coordinates: Location
+    userId: int
+    startCoordinates: Location
     active: bool
-    transportation_type: SpecificTransportationType
+    transportationType: SpecificTransportationType
 
 class FinishRouteDtoResponse(BaseModel):
     id: int
-    username: str
-    start_coordinates: Location
-    end_coordinates: Location
+    userId: int
+    startCoordinates: Location
+    endCoordinates: Location
     active: bool
     distance: float
-    transportation_type: SpecificTransportationType
+    transportationType: SpecificTransportationType
