@@ -3,3 +3,18 @@
     margin: auto;
     margin-top: 20%;
 }
+
+.entry-border {
+    border-radius: 10px;
+    border-width: 1px;
+    margin-bottom: 2%;
+    padding: 1.5%;
+    border-color: rgba(255, 255, 255, 0.352);
+    border-style: solid;
+    background: rgba(25, 25, 26, 0.177);
+}
+
+.entry {
+    font-size: larger;
+    font-weight: 600;
+}
