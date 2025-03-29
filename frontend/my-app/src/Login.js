@@ -25,7 +25,7 @@ function LoginComponent() {
             return res.json()
     })
         .then(data => {
-            sessionStorage.setItem('name', data.username);
+            sessionStorage.setItem('name', data.user_name);
             sessionStorage.setItem('id', data.id);
             navigate('/routes', {replace: true});
         })

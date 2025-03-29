@@ -3,8 +3,18 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import './Navbar.css';
+import { useNavigate } from 'react-router-dom';
 
 function NavbarComponent() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("id");
+    sessionStorage.removeItem("name");
+
+    navigate('/routes', {replace: true});
+  }
+  
   return (
     <Navbar expand="lg" className="bg-transparent" variant='dark'>
       <Container>
@@ -17,7 +27,7 @@ function NavbarComponent() {
             <NavDropdown title="Profile" id="basic-nav-dropdown">
               <NavDropdown.Item >Invites</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/login">
+              <NavDropdown.Item onClick={handleLogout}>
                 Logout
               </NavDropdown.Item>
             </NavDropdown>
