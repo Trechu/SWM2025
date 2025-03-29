@@ -1,6 +1,6 @@
 from typing import Annotated, Optional
-from db.models import Route, User
-from db.setup import SessionDep, create_db_and_tables
+from app.db.models import Route, User
+from app.db.setup import SessionDep, create_db_and_tables
 from fastapi import FastAPI, Query
 from dotenv import load_dotenv
 from sqlmodel import select
