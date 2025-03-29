@@ -33,7 +33,7 @@ def on_startup() -> None:
 def routes() -> list[str]:
     return list(["Hello", "World"])
 
-@app.post("/users/:id/routes")
+@app.post("/users/{user_id}/routes")
 def add_route(user_id: int, startRouteDto: StartRouteDtoRequest, session: SessionDep) -> None:
     if not session.exec(select(User).where(User.id == user_id)).first():
         raise HTTPException(status_code=404, detail="User not found")
