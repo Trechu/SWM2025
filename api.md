@@ -1,6 +1,6 @@
 # API
 
-## GET /login
+## POST /login
 ### Request
 ```json
 {
