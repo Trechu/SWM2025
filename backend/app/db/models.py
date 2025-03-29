@@ -1,6 +1,7 @@
-from sqlmodel import Field, SQLModel, Relationship, Column
+from sqlmodel import Field, SQLModel, Relationship, Column, TIMESTAMP, text
 from ..common.enums import SpecificTransportationType
 from sqlalchemy import String
+from datetime import datetime
 
 class Route(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
@@ -12,8 +13,7 @@ class Route(SQLModel, table=True):
     active: bool = Field(default=True)
     distance: float = Field(default=0, index=False)
     transportation_type: SpecificTransportationType | None = Field(default= None,index=False) 
-
-
+    date_time: datetime = Field(sa_column=Column(TIMESTAMP(timezone=True), nullable=False), default=text("CURRENT_TIMESTAMP"))
 
 class User(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
