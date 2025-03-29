@@ -78,11 +78,11 @@ def get_active_route(
     session: SessionDep, 
     user_id: int,
     offset: int = 0,
-):# -> Optional[Route]:
-    user = session.exec(select(User).where(User.id == user_id.id).offset(offset)).first() 
+) -> Optional[Route]:
+    user = session.exec(select(User).where(User.id == user_id).offset(offset)).first() 
     if user is None:
         raise HTTPException(status_code=400, detail="Bad request. User not found")
-    active_route = session.exec(select(Route).where(Route.user_id == user.id).where(Route.active == True)).first()
+    active_route = session.exec(select(Route).where(Route.user_id == user_id).where(Route.active == True)).first()
     if active_route is None:
         raise HTTPException(status_code=404, detail="Route not found")
     return active_route 
