@@ -1,10 +1,11 @@
-from ..dto.RoutesDtos import FinishRouteDtoRequest, FinishRouteDtoResponse
-from ..common.location import Location
-from app.db.setup import SessionDep
-from ..common.enums import GenericTransportationType
+import httpx
+
+from app.common.enums import SpecificTransportationType, GenericTransportationType
+from app.common.location import Location
 from app.common.consts import ROUTE_API_URL
 from app.db.models import Route
-import httpx
+from app.db.setup import SessionDep
+from app.dto.RoutesDtos import StartRouteDtoResponse, FinishRouteDtoRequest, FinishRouteDtoResponse
 
 
 def get_distance_from_api(
@@ -34,8 +35,6 @@ def get_distance_from_api(
         "X-Goog-FieldMask": "routes.distanceMeters",
     }
     
-    print(headers)
-
     data = {
         "origin": {
             "location": {
@@ -64,8 +63,6 @@ def get_distance_from_api(
         headers=headers,
         json=data,
     )
-    print(data)
-    print(response.json())
     if response.is_error:
         return None
 
@@ -83,11 +80,11 @@ def handle_end_route(
     route.end_latitude = route_data.endLocation.latitude
     route.end_longitude = route_data.endLocation.longitude
     route.distance = distance
-
+    
     session.add(route)
     session.commit()
     session.refresh(route)
-
+    
     return FinishRouteDtoResponse(
         id=route.id,
         userId=route.user_id,
@@ -99,5 +96,36 @@ def handle_end_route(
         ),
         active=route.active,
         distance=route.distance,
-        transportationType=route.transportation_type,
+        transportationMode=route.transportation_type,
+    )
+
+
+def create_route(
+    user_id: int,
+    latitude: float,
+    longitude: float,
+    transportationMode: SpecificTransportationType,
+    session: SessionDep
+) -> StartRouteDtoResponse:
+    route = Route(
+        user_id=user_id,
+        start_longitude=longitude,
+        start_latitude=latitude,
+        transportation_type=transportationMode
+    )
+    session.add(route)
+    session.commit()
+    session.refresh(route)
+
+    location = Location(
+        latitude=latitude,
+        longitude=longitude
+    )
+
+    return StartRouteDtoResponse(
+        id=route.id,
+        userId=user_id,
+        startLocation=location,
+        active=True,
+        transportationMode=transportationMode
     )

@@ -1,13 +1,16 @@
 from typing import Annotated, Optional
 from app.db.models import Route, User
 from app.db.setup import SessionDep, create_db_and_tables
+from app.dto.UserDtos import UserLoginDtoRequest
+from app.dto.RoutesDtos import FinishRouteDtoRequest, StartRouteDtoRequest
+from app.service.route_service import handle_end_route, create_route
+
 from fastapi import FastAPI, Query, HTTPException, status
-from sqlmodel import select
-from app.dto.RoutesDtos import FinishRouteDtoRequest
-from app.service.route_service import handle_end_route
 from dotenv import load_dotenv
+from sqlmodel import select
 import os
-    
+
+
 app = FastAPI()
 
 load_dotenv()
@@ -22,12 +25,17 @@ def on_startup() -> None:
 def routes() -> list[str]:
     return list(["Hello", "World"])
 
-@app.post("/routes")
-def add_route(route: Route, session: SessionDep) -> None:
-    session.add(route)
-    session.commit()
-    session.refresh(route)
-    return route
+@app.post("/users/:id/routes")
+def add_route(user_id: int, startRouteDto: StartRouteDtoRequest, session: SessionDep) -> None:
+    if not session.exec(select(User).where(User.id == user_id)).first():
+        raise HTTPException(status_code=404, detail="User not found")
+    return create_route(
+        user_id=user_id,
+        latitude=startRouteDto.startLocation.latitude,
+        longitude=startRouteDto.startLocation.longitude,
+        transportationMode=startRouteDto.transportationMode,
+        session=session
+    )
 
 @app.get("/routes")
 def list_all_routes(
@@ -79,3 +87,28 @@ def add_user(user: User, session: SessionDep) -> None:
     session.commit()
     session.refresh(user)
     return user
+
+@app.post("/login")
+def login_user(
+    session: SessionDep, 
+    user_login: UserLoginDtoRequest,
+    offset: int = 0,
+):
+    user = session.exec(select(User).where(User.user_name == user_login.user_name)).first()
+    if user is None:
+         raise HTTPException(status_code=404, detail="User not found")
+    return user
+
+@app.get("/users/{id}/active_route")
+def get_active_route(
+    session: SessionDep, 
+    user_id: int,
+    offset: int = 0,
+) -> Optional[Route]:
+    user = session.exec(select(User).where(User.id == user_id).offset(offset)).first() 
+    if user is None:
+        raise HTTPException(status_code=400, detail="Bad request. User not found")
+    active_route = session.exec(select(Route).where(Route.user_id == user_id).where(Route.active == True)).first()
+    if active_route is None:
+        raise HTTPException(status_code=404, detail="Route not found")
+    return active_route 

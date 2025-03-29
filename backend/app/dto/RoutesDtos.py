@@ -2,8 +2,6 @@ from pydantic import BaseModel
 
 from ..common.enums import SpecificTransportationType
 from ..common.location import Location
-from ..db.models import User
-
 
 class StartRouteDtoRequest(BaseModel):
     startLocation: Location
@@ -15,15 +13,15 @@ class FinishRouteDtoRequest(BaseModel):
 class StartRouteDtoResponse(BaseModel):
     id: int
     userId: int
-    startCoordinates: Location
+    startLocation: Location
     active: bool
-    transportationType: SpecificTransportationType
+    transportationMode: SpecificTransportationType
 
 class FinishRouteDtoResponse(BaseModel):
     id: int
     userId: int
-    startCoordinates: Location
-    endCoordinates: Location
+    startLocation: Location
+    endLocation: Location
     active: bool
     distance: float
-    transportationType: SpecificTransportationType
+    transportationMode: SpecificTransportationType
