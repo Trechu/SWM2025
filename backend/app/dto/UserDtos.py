@@ -1,4 +1,4 @@
 from pydantic import BaseModel
 
-class UserLogin(BaseModel):
+class UserLoginDtoRequest(BaseModel):
     user_name: str
