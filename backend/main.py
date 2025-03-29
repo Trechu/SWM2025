@@ -91,10 +91,14 @@ def list_all_users(
 
 @app.post("/users")
 def add_user(user: User, session: SessionDep) -> None:
-    session.add(user)
-    session.commit()
-    session.refresh(user)
-    return user
+    try:
+        session.add(user)
+        session.commit()
+        session.refresh(user)
+        return user
+    except Exception as e:
+        session.rollback()
+        raise HTTPException(status_code=400, detail="User already exists")
 
 @app.post("/login")
 def login_user(
