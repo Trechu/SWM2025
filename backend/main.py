@@ -10,6 +10,10 @@ from dotenv import load_dotenv
 from sqlmodel import select
 import os
 
+from app.common.enums import Time
+from app.dto.LeaderboardDtos import LeaderboardListResponse
+from app.service import leaderboard_service
+
 
 app = FastAPI()
 
@@ -112,3 +116,11 @@ def get_active_route(
     if active_route is None:
         raise HTTPException(status_code=404, detail="Route not found")
     return active_route 
+
+@app.get("/users/:id/leaderboard")
+def get_leaderboard(user_id: int, time: Time, session: SessionDep) -> LeaderboardListResponse:
+    return leaderboard_service.leaderboard(
+        user_id=user_id,
+        time=time,
+        session=session
+    )

@@ -18,7 +18,7 @@ class SpecificTransportationType(Enum):
         """
         Return emission multiplier for given transportation type.
         """
-        _EMISSIONS[self]
+        return _EMISSIONS[self]
 
 """
 Emissions per transportation type in [g/km].
@@ -68,3 +68,9 @@ _GENERALIZATION = {
     SpecificTransportationType.ELECTRIC_CAR: GenericTransportationType.DRIVE,
     SpecificTransportationType.MOTORBIKE: GenericTransportationType.DRIVE
 }
+
+class Time(Enum):
+    TODAY = "today"
+    WEEK = "week"
+    MONTH = "month"
+    ALL_TIME = "all_time"
