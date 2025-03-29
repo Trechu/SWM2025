@@ -21,11 +21,56 @@ User data with ID.
 #### 404 NOT FOUND
 If there is no user with this username.
 
-## GET /active-route
+## POST /users/:id/routes
+Route data required to create new one (only with start data).
 ### Request
 ```json
-User-Id: 123 // header!
+{
+    // TODO: route data
+}
 ```
+
+### Response
+#### 201 CREATED
+Route data.
+```json
+{
+    // TODO: route data with ID
+}
+```
+
+#### 400 BAD REQUEST
+If route data is incorrect.
+
+#### 404 NOT FOUND
+If there is no user with this id.
+
+## PUT /users/:id/routes/:id/end
+End route
+### Request
+```json
+{
+    // TODO: route data needed to end route
+}
+```
+
+### Response
+#### 200 OK
+Route data.
+```json
+{
+    // TODO: route data with ID
+}
+```
+
+#### 400 BAD REQUEST
+If route data is incorrect.
+
+#### 404 NOT FOUND
+If there is no user with this id or no route with this id.
+
+## GET /users/:id/active-route
+### Request
 
 ### Response
 #### 200 OK
@@ -42,11 +87,8 @@ If there is no user with this ID.
 #### 404 NOT FOUND
 If there is no active route
 
-## GET /leaderboard/today
+## GET /users/:id/leaderboard/today
 ### Request
-```json
-User-Id: 123 // header!
-```
 
 ### Response
 #### 200 OK
@@ -81,8 +123,8 @@ If user doesn't have any friends, just send their data.
 #### 400 BAD REQUEST
 If there is no user with this ID.
 
-## GET /leaderboard/week
+## GET /users/:id/leaderboard/week
 Same as `/leaderboard/today` but for the current week.
 
-## GET /leaderboard/month
+## GET /users/:id/leaderboard/month
 Same as `/leaderboard/today` but for the current month.
