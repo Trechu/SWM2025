@@ -15,7 +15,7 @@ function PositionComponent({ positionEntry }) {
             <Col xs="1" lg="2">{positionEntry.position}</Col>
             <Col xs="2" lg="2">{positionEntry.username}</Col>
             <Col xs="3" lg="2">{(parseInt(positionEntry.distance)/1000).toFixed(2) + " km"}</Col>
-            <Col xs="3" lg="2">{(parseInt(positionEntry.co2)/1000).toFixed(2) + " kg"}</Col>
+            <Col xs="3" lg="2">{(parseInt(positionEntry.co2)/1000000).toFixed(2) + " kg"}</Col>
             <Col xs="3" lg="2">{(positionEntry.co2PerKilometer).toFixed(2) + " g/km"}</Col>
         </Row>
     );
